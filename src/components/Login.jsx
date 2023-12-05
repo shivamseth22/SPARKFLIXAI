@@ -1,21 +1,67 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isLogged, setIsLogged] = useState(true);
-  const [errorMessage ,setErrorMessage] = useState()
+  const [errorMessage, setErrorMessage] = useState();
 
   const email = useRef(null);
   const password = useRef(null);
 
   const heandleButtonClick = () => {
     // Validate the  form
-    const message =  checkValidData(email.current.value, password.current.value);
-    console.log(message);
+    const message = checkValidData(email.current.value, password.current.value);
+    // console.log(message);
     // console.log(email.current.value);
     // console.log(password.current.value);
     setErrorMessage(message);
+    if (message) return;
+    // Sign in Sign up logic
+    if (!isLogged) {
+      // sign up
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode+"-"+errorMessage);
+          // ..
+        });
+    } else {
+      // sign in
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode+"-"+errorMessage);
+        });
+    }
   };
 
   const toggleSignInForm = () => {
@@ -32,7 +78,10 @@ const Login = () => {
         />
       </div>
 
-      <form  onSubmit={(e)=>e.preventDefault()}className="p-12 bg-black absolute w-3/12 mt-36 mx-auto right-0 left-0 text-white bg-opacity-80 ">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="p-12 bg-black absolute w-3/12 mt-36 mx-auto right-0 left-0 text-white bg-opacity-80 "
+      >
         <h1 className="font-bold text-3xl py-4">
           {isLogged ? "Sign In" : "Sign Up"}
         </h1>

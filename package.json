@@ -15,9 +15,12 @@
     "firebase": "^10.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "uuid": "^8.3.2"
+    "react-redux": "^9.0.1",
+    "react-uuid": "^2.0.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.2.0",
