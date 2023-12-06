@@ -6,8 +6,10 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isLogged, setIsLogged] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
 
@@ -34,12 +36,13 @@ const Login = () => {
           // Signed up
           const user = userCredential.user;
           console.log(user);
+          navigate("/browse");
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode+"-"+errorMessage);
+          setErrorMessage(errorCode + "-" + errorMessage);
           // ..
         });
     } else {
@@ -52,14 +55,14 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          
           console.log(user);
+          navigate("/");
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode+"-"+errorMessage);
+          setErrorMessage(errorCode + "-" + errorMessage);
         });
     }
   };
@@ -71,8 +74,9 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <div className="absolute">
+      <div className="absolute w-full">
         <img
+        className=""
           src="https://assets.nflxext.com/ffe/siteui/vlv3/c906271d-7184-4eec-83c9-b6d4c1a068ec/728874a6-eeda-400a-9bcf-a935a1408a4f/IN-en-20231127-popsignuptwoweeks-perspective_alpha_website_large.jpg"
           alt="bg"
         />
@@ -80,7 +84,7 @@ const Login = () => {
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="p-12 bg-black absolute w-3/12 mt-36 mx-auto right-0 left-0 text-white bg-opacity-80 "
+        className="p-12 bg-black absolute w-3/12 mt-32 mx-auto right-0 left-0 text-white bg-opacity-80 min-w-[350px] "
       >
         <h1 className="font-bold text-3xl py-4">
           {isLogged ? "Sign In" : "Sign Up"}
