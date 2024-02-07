@@ -1,12 +1,10 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword,} from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { background } from "../utils/constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,47 +15,29 @@ const Login = () => {
   const password = useRef(null);
 
   const heandleButtonClick = () => {
-    // Validate the  form
     const message = checkValidData(email.current.value, password.current.value);
-    // console.log(message);
-    // console.log(email.current.value);
-    // console.log(password.current.value);
     setErrorMessage(message);
     if (message) return;
-    // Sign in Sign up logic
     if (!isLogged) {
-      // sign up
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      createUserWithEmailAndPassword(auth,email.current.value,password.current.value)
         .then((userCredential) => {
-          // Signed up
           const user = userCredential.user;
           console.log(user);
           navigate("/browse");
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "-" + errorMessage);
-          // ..
         });
     } else {
-      // sign in
       signInWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/");
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -77,7 +57,7 @@ const Login = () => {
       <div className="absolute w-full">
         <img
         className=""
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/c906271d-7184-4eec-83c9-b6d4c1a068ec/728874a6-eeda-400a-9bcf-a935a1408a4f/IN-en-20231127-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={background}
           alt="bg"
         />
       </div>
