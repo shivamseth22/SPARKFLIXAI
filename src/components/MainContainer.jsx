@@ -5,7 +5,6 @@ import VideoTitle from './VideoTitle';
 
 const MainContainer = () => {
     const movies = useSelector(store=>store?.movies?.nowPlayingMovies);
-    console.log("movies" , movies )
     if(!movies)return;
 
     const mainMovie = movies[0];
@@ -15,7 +14,7 @@ const MainContainer = () => {
          <div>
          <VideoBackGround movieId={id}/>
          </div>
-         <div className='absolute top-96 left-20 right-20'>
+         <div className='absolute top-60 left-20 right-20 text-white'>
          <VideoTitle title = {original_title} overview={overview} />
          </div>
     </div>

@@ -11,7 +11,6 @@ export const useNowPlayingMovies = () => {
     const getNowPlayingMovies = async () => {
         const response = await fetch('https://api.themoviedb.org/3/movie/now_playing?language=IN&page=1', API_OPTIONS)
         const json = await response.json();
-        console.log("json", json.results)
         dispatch(addNowPlayingMovies(json?.results))
 
 
