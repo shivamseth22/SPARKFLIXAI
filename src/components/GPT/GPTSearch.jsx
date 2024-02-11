@@ -1,9 +1,13 @@
 import React from 'react'
+import GPTBar from './GPTBar'
+import GPTSuggetionContainer from './GPTSuggetionContainer'
 
 const GPTSearch = () => {
   return (
     <>
-      jbgja
+      <GPTBar/>
+      <GPTSuggetionContainer/>
+      <h1>hello ji </h1>
     </>
   )
 }
