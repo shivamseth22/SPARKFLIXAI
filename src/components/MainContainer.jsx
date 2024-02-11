@@ -8,16 +8,18 @@ const MainContainer = () => {
     if(!movies)return;
 
     const mainMovie = movies[0];
-    const {original_title , overview , id} = mainMovie;
+    const {title , overview , id} = mainMovie;
   return (
     <div className='relative'>
-         <div>
-         <VideoBackGround movieId={id}/>
-         </div>
-         <div className='absolute top-60 left-20 right-20 text-white'>
-         <VideoTitle title = {original_title} overview={overview} />
-         </div>
+    <div className='video-container'>
+      <VideoBackGround movieId={id}/>
+      <div className="absolute inset-0 bg-gradient-to-r from-black"></div>
     </div>
+    <div className='absolute top-80 left-40 right-20 text-white'>
+      <VideoTitle title={title} overview={overview} />
+    </div>
+  </div>
+  
   )
 }
 
